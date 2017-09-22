@@ -26,6 +26,10 @@ public class Main {
 		return result;
 	}
 
+	/**
+	 * 执行顺序按节点加入到图中的顺序来进行排序
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		GraphBuilder<Node> eGraph = new GraphBuilder<>();
 		Node node1 = new Node("a");
@@ -55,8 +59,8 @@ public class Main {
 		eGraph.insertEdge(node3, node6, AnyObject.valueOf(1));
 		eGraph.insertEdge(node4, node7, AnyObject.valueOf(1));
 		eGraph.insertEdge(node3, node7, AnyObject.valueOf(1));
-		eGraph.insertEdge(node4, node8, AnyObject.valueOf(1));
 		eGraph.insertEdge(node3, node8, AnyObject.valueOf(1));
+		eGraph.insertEdge(node4, node8, AnyObject.valueOf(1));
 		Graph<Node> graph = eGraph.build();
 		List<Node> nodeList = graph.broadFirstSearch();
 		for (Node node : nodeList) {
@@ -74,6 +78,10 @@ public class Main {
 		List<Node> resultList = graph.getAllEndVertex();
 		for (Node node : resultList) {
 			System.out.println(node.dump());
+		}
+		List<Node> nList = graph.getAllStartVertex();
+		for (Node node : nList) {
+			System.out.print(node.getName() + " ");
 		}
 	}
 
