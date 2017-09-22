@@ -4,6 +4,6 @@ import com.alio.graph.AnyObject;
 
 public interface IExecutable {
 
-	boolean exec(AnyObject... param);
+	boolean exec(AnyObject... params);
 	
 }

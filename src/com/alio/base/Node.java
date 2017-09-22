@@ -4,14 +4,18 @@ import com.alio.graph.AnyObject;
 
 public class Node {
 
-	protected AnyObject mResult;
+	protected AnyObject mValue;
 	
-	public void set(AnyObject obj) {
-		mResult = obj;
+	public void setValue(AnyObject obj) {
+		mValue = obj;
 	}
 	
-	public AnyObject getResult() {
-		return mResult;
+	public AnyObject getValue() {
+		return mValue;
 	}
 
+	public String dump() {
+		return mValue.toString();
+	}
+	
 }

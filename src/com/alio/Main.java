@@ -15,7 +15,7 @@ public class Main {
 	public static final AnyObject[] toResultList(List<Node> nodes) {
 		List<AnyObject> list = new ArrayList<AnyObject>();
 		for(Node node:nodes) {
-			list.add(node.getResult());
+			list.add(node.getValue());
 		}
 		AnyObject[] result = new AnyObject[list.size()];
 		list.toArray(result);
@@ -25,10 +25,10 @@ public class Main {
 	public static void main(String[] args) {
 		GraphBuilder<Node> eGraph = new GraphBuilder<>();
 		Node node1 = new Node();
-		node1.set(AnyObject.valueOf(1));
+		node1.setValue(AnyObject.valueOf(1));
 		eGraph.insertVertex(node1);
 		Node node2 = new Node();
-		node2.set(AnyObject.valueOf(1));
+		node2.setValue(AnyObject.valueOf(1));
 		eGraph.insertVertex(node2);
 		PlusExecutor node3 = new PlusExecutor();
 		eGraph.insertVertex(node3);
@@ -41,6 +41,10 @@ public class Main {
 				List<Node> paramList = graph.getVertexListByDestination(node);
 				iExecutable.exec(toResultList(paramList));
 			}
+		}
+		List<Node> resultList = graph.getAllEndVertex();
+		for(Node node : resultList) {
+			System.out.println(node.dump());
 		}
 	}
 

@@ -243,6 +243,24 @@ public class Graph<T> {
 		return result;
 	}
 
+	/**
+	 * 获取所有边缘节点
+	 * @return
+	 */
+	private List<Integer> getAllFringeVertex() {
+		List<Integer> result = new LinkedList<Integer>();
+		int num = getNumOfVertex();
+		for (int i = 0; i < num; i++) {
+			for(int j = 0; j < num; j++){
+				if(edges[j][i] != null || edges[i][j] != null) {
+					continue;
+				}
+				result.add(i);
+			}
+		}
+		return result;
+	}
+	
 	public List<T> getAllEndVertex() {
 		List<T> result = new LinkedList<T>();
 		int num = getNumOfVertex();

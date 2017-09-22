@@ -6,8 +6,18 @@ import com.alio.graph.AnyObject;
 public class DivideExecutor extends ExecutableNode {
 
 	@Override
-	public boolean exec(AnyObject... param) {
-		return false;
+	public boolean exec(AnyObject... params) {
+		if (params.length == 0) {
+			return true;
+		}
+		mValue = params[0];
+		for (int index = 1; index < params.length; index++) {
+			if (params[index] == null) {
+				continue;
+			}
+			mValue.divide(params[index]);
+		}
+		return true;
 	}
 
 	@Override
