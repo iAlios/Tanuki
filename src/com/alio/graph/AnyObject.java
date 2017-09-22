@@ -389,5 +389,25 @@ public class AnyObject {
 	public String toString() {
 		return String.valueOf(mValue);
 	}
+
+	public AnyObject clone() {
+		if (mValue == null) {
+			return null;
+		}
+		if (mValue instanceof Integer) {
+			return new AnyObject(((Integer) mValue).intValue());
+		} else if (mValue instanceof Short) {
+			return new AnyObject(((Short) mValue).shortValue());
+		} else if (mValue instanceof Long) {
+			return new AnyObject(((Long) mValue).longValue());
+		} else if (mValue instanceof Float) {
+			return new AnyObject(((Float) mValue).floatValue());
+		} else if (mValue instanceof Double) {
+			return new AnyObject(((Double) mValue).doubleValue());
+		} else {
+			// TODO clone
+			return new AnyObject(mValue);
+		}
+	}
 	
 }

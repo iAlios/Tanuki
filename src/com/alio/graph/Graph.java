@@ -251,7 +251,7 @@ public class Graph<T> {
 	 * @return
 	 */
 	public List<T> getAllFringeVertex() {
-		List<T> result = new LinkedList<T>();
+		List<T> result = new ArrayList<T>();
 		int num = getNumOfVertex();
 		for (int i = 0; i < num; i++) {
 			loop: {
@@ -284,7 +284,7 @@ public class Graph<T> {
 	 * @return
 	 */
 	public List<T> getAllEndVertex() {
-		List<T> result = new LinkedList<T>();
+		List<T> result = new ArrayList<T>();
 		int num = getNumOfVertex();
 		for (int i = 0; i < num; i++) {
 			loop: {
@@ -305,7 +305,7 @@ public class Graph<T> {
 	 * @return
 	 */
 	public List<T> getAllStartVertex() {
-		List<T> result = new LinkedList<T>();
+		List<T> result = new ArrayList<T>();
 		int num = getNumOfVertex();
 		for (int i = 0; i < num; i++) {
 			loop: {

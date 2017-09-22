@@ -4,7 +4,16 @@ import com.alio.exec.ExecutorType;
 
 public abstract class ExecutableNode extends Node implements IExecutable {
 
+	public ExecutableNode() {
+		super(null);
+	}
+
 	public abstract ExecutorType getMethodType();
+	
+	@Override
+	public String getName() {
+		return getMethodType().name();
+	}
 	
 	@Override
 	public String dump() {

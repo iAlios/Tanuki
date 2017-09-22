@@ -10,12 +10,12 @@ public class ModExecutor extends ExecutableNode {
 		if (params.length == 0) {
 			return true;
 		}
-		mValue = params[0];
+		mValue = params[0].clone();
 		for (int index = 1; index < params.length; index++) {
 			if (params[index] == null) {
 				continue;
 			}
-			mValue.minus(params[index]);
+			mValue.mod(params[index]);
 		}
 		return true;
 	}

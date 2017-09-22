@@ -10,7 +10,7 @@ public class PlusExecutor extends ExecutableNode {
 		if (params.length == 0) {
 			return true;
 		}
-		mValue = params[0];
+		mValue = params[0].clone();
 		for (int index = 1; index < params.length; index++) {
 			if (params[index] == null) {
 				continue;
