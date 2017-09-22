@@ -386,4 +386,8 @@ public class AnyObject {
 		return new AnyObject(v);
 	}
 
+	public String toString() {
+		return String.valueOf(mValue);
+	}
+	
 }

@@ -86,6 +86,7 @@ public class Graph<T> {
 
 	/**
 	 * 获取所有指向node的节点
+	 * 
 	 * @param node
 	 * @return
 	 */
@@ -102,6 +103,7 @@ public class Graph<T> {
 
 	/**
 	 * 获取node节点所有指向
+	 * 
 	 * @param node
 	 * @return
 	 */
@@ -115,7 +117,7 @@ public class Graph<T> {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 删除节点
 	 * 
@@ -245,35 +247,79 @@ public class Graph<T> {
 
 	/**
 	 * 获取所有边缘节点
+	 * 
 	 * @return
 	 */
-	private List<Integer> getAllFringeVertex() {
-		List<Integer> result = new LinkedList<Integer>();
+	public List<T> getAllFringeVertex() {
+		List<T> result = new LinkedList<T>();
 		int num = getNumOfVertex();
 		for (int i = 0; i < num; i++) {
-			for(int j = 0; j < num; j++){
-				if(edges[j][i] != null || edges[i][j] != null) {
-					continue;
+			loop: {
+				for (int j = 0; j < num; j++) {
+					if (edges[i][j] != null) {
+						break loop;
+					}
 				}
-				result.add(i);
+				result.add(vertexList.get(i));
+			}
+		}
+		for (int i = 0; i < num; i++) {
+			loop: {
+				for (int j = 0; j < num; j++) {
+					if (edges[j][i] != null) {
+						break loop;
+					}
+				}
+				if (!result.contains(vertexList.get(i))) {
+					result.add(vertexList.get(i));
+				}
 			}
 		}
 		return result;
 	}
-	
+
+	/**
+	 * 获取结束节点
+	 * 
+	 * @return
+	 */
 	public List<T> getAllEndVertex() {
 		List<T> result = new LinkedList<T>();
 		int num = getNumOfVertex();
 		for (int i = 0; i < num; i++) {
-			for(int j = 0; j < num; j++){
-				if(edges[j][i] != null) {
-					
+			loop: {
+				for (int j = 0; j < num; j++) {
+					if (edges[i][j] != null) {
+						break loop;
+					}
 				}
+				result.add(vertexList.get(i));
 			}
 		}
 		return result;
 	}
-	
+
+	/**
+	 * 获取所有起始节点
+	 * 
+	 * @return
+	 */
+	public List<T> getAllStartVertex() {
+		List<T> result = new LinkedList<T>();
+		int num = getNumOfVertex();
+		for (int i = 0; i < num; i++) {
+			loop: {
+				for (int j = 0; j < num; j++) {
+					if (edges[j][i] != null) {
+						break loop;
+					}
+				}
+				result.add(vertexList.get(i));
+			}
+		}
+		return result;
+	}
+
 	public static void main(String args[]) {
 		String labels[] = { "1", "2", "3", "4", "5", "6", "7", "8" };// 节点的标识
 		Graph<String> graph = new Graph<String>(labels.length);
@@ -289,15 +335,6 @@ public class Graph<T> {
 		graph.insertEdge(2, 5, AnyObject.valueOf(1));
 		graph.insertEdge(2, 6, AnyObject.valueOf(1));
 		graph.insertEdge(5, 6, AnyObject.valueOf(1));
-		graph.insertEdge(1, 0, AnyObject.valueOf(1));
-		graph.insertEdge(2, 0, AnyObject.valueOf(1));
-		graph.insertEdge(3, 1, AnyObject.valueOf(1));
-		graph.insertEdge(4, 1, AnyObject.valueOf(1));
-		graph.insertEdge(7, 3, AnyObject.valueOf(1));
-		graph.insertEdge(7, 4, AnyObject.valueOf(1));
-		graph.insertEdge(6, 2, AnyObject.valueOf(1));
-		graph.insertEdge(5, 2, AnyObject.valueOf(1));
-		graph.insertEdge(6, 5, AnyObject.valueOf(1));
 
 		System.out.println("深度优先搜索序列为：");
 		for (String str : graph.depthFirstSearch()) {
@@ -306,6 +343,16 @@ public class Graph<T> {
 		System.out.println();
 		System.out.println("广度优先搜索序列为：");
 		for (String str : graph.broadFirstSearch()) {
+			System.out.print(str + "  ");
+		}
+		System.out.println();
+		System.out.println("获取所有起始节点为：");
+		for (String str : graph.getAllStartVertex()) {
+			System.out.print(str + "  ");
+		}
+		System.out.println();
+		System.out.println("获取结束节点为：");
+		for (String str : graph.getAllEndVertex()) {
 			System.out.print(str + "  ");
 		}
 	}

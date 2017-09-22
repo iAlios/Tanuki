@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.alio.base.IExecutable;
 import com.alio.base.Node;
+import com.alio.exec.MultipyExecutor;
 import com.alio.exec.PlusExecutor;
 import com.alio.graph.AnyObject;
 import com.alio.graph.Graph;
@@ -28,10 +29,19 @@ public class Main {
 		node1.setValue(AnyObject.valueOf(1));
 		eGraph.insertVertex(node1);
 		Node node2 = new Node();
-		node2.setValue(AnyObject.valueOf(1));
+		node2.setValue(AnyObject.valueOf(5));
 		eGraph.insertVertex(node2);
 		PlusExecutor node3 = new PlusExecutor();
 		eGraph.insertVertex(node3);
+		Node node4 = new Node();
+		node4.setValue(AnyObject.valueOf(3));
+		eGraph.insertVertex(node4);
+		MultipyExecutor node5 = new MultipyExecutor();
+		eGraph.insertVertex(node5);
+		eGraph.insertEdge(node1, node3, AnyObject.valueOf(1));
+		eGraph.insertEdge(node2, node3, AnyObject.valueOf(1));
+		eGraph.insertEdge(node4, node5, AnyObject.valueOf(1));
+		eGraph.insertEdge(node3, node5, AnyObject.valueOf(1));
 		Graph<Node> graph = eGraph.build();
 		List<Node> nodeList = graph.broadFirstSearch();
 		IExecutable iExecutable = null;
