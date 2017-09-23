@@ -4,6 +4,14 @@ public class AnyObject {
 
 	private Object mValue;
 
+	public AnyObject(boolean v) {
+		mValue = Boolean.valueOf(v);
+	}
+
+	public AnyObject(byte v) {
+		mValue = Byte.valueOf(v);
+	}
+	
 	public AnyObject(int v) {
 		mValue = Integer.valueOf(v);
 	}
@@ -26,6 +34,14 @@ public class AnyObject {
 
 	public AnyObject(Object v) {
 		mValue = v;
+	}
+
+	public void plus(byte v) {
+		if (mValue == null) {
+			mValue = Byte.valueOf(v);
+		} else {
+			mValue = ((Byte) mValue) + v;
+		}
 	}
 
 	public void plus(int v) {
@@ -79,7 +95,9 @@ public class AnyObject {
 		if (v == null) {
 			return;
 		}
-		if (v.mValue instanceof Integer) {
+		if (v.mValue instanceof Byte) {
+			plus(((Byte) v.mValue).byteValue());
+		} else if (v.mValue instanceof Integer) {
 			plus(((Integer) v.mValue).intValue());
 		} else if (v.mValue instanceof Short) {
 			plus(((Short) v.mValue).shortValue());
@@ -91,6 +109,14 @@ public class AnyObject {
 			plus(((Double) v.mValue).doubleValue());
 		} else {
 			plus(v.mValue);
+		}
+	}
+
+	public void minus(byte v) {
+		if (mValue == null) {
+			mValue = Byte.valueOf(v);
+		} else {
+			mValue = ((Byte) mValue) - v;
 		}
 	}
 
@@ -145,7 +171,9 @@ public class AnyObject {
 		if (v == null) {
 			return;
 		}
-		if (v.mValue instanceof Integer) {
+		if (v.mValue instanceof Byte) {
+			minus(((Byte) v.mValue).byteValue());
+		} else if (v.mValue instanceof Integer) {
 			minus(((Integer) v.mValue).intValue());
 		} else if (v.mValue instanceof Short) {
 			minus(((Short) v.mValue).shortValue());
@@ -157,6 +185,14 @@ public class AnyObject {
 			minus(((Double) v.mValue).doubleValue());
 		} else {
 			minus(v.mValue);
+		}
+	}
+
+	public void divide(byte v) {
+		if (mValue == null) {
+			mValue = Byte.valueOf(v);
+		} else {
+			mValue = ((Byte) mValue) / v;
 		}
 	}
 
@@ -211,7 +247,9 @@ public class AnyObject {
 		if (v == null) {
 			return;
 		}
-		if (v.mValue instanceof Integer) {
+		if (v.mValue instanceof Byte) {
+			divide(((Byte) v.mValue).byteValue());
+		} else if (v.mValue instanceof Integer) {
 			divide(((Integer) v.mValue).intValue());
 		} else if (v.mValue instanceof Short) {
 			divide(((Short) v.mValue).shortValue());
@@ -223,6 +261,14 @@ public class AnyObject {
 			divide(((Double) v.mValue).doubleValue());
 		} else {
 			divide(v.mValue);
+		}
+	}
+
+	public void multipy(byte v) {
+		if (mValue == null) {
+			mValue = Byte.valueOf(v);
+		} else {
+			mValue = ((Byte) mValue) * v;
 		}
 	}
 
@@ -277,7 +323,9 @@ public class AnyObject {
 		if (v == null) {
 			return;
 		}
-		if (v.mValue instanceof Integer) {
+		if (v.mValue instanceof Byte) {
+			multipy(((Byte) v.mValue).byteValue());
+		} else if (v.mValue instanceof Integer) {
 			multipy(((Integer) v.mValue).intValue());
 		} else if (v.mValue instanceof Short) {
 			multipy(((Short) v.mValue).shortValue());
@@ -289,6 +337,14 @@ public class AnyObject {
 			multipy(((Double) v.mValue).doubleValue());
 		} else {
 			multipy(v.mValue);
+		}
+	}
+
+	public void mod(byte v) {
+		if (mValue == null) {
+			mValue = Byte.valueOf(v);
+		} else {
+			mValue = ((Byte) mValue) % v;
 		}
 	}
 
@@ -343,7 +399,9 @@ public class AnyObject {
 		if (v == null) {
 			return;
 		}
-		if (v.mValue instanceof Integer) {
+		if (v.mValue instanceof Byte) {
+			mod(((Byte) v.mValue).byteValue());
+		} else if (v.mValue instanceof Integer) {
 			mod(((Integer) v.mValue).intValue());
 		} else if (v.mValue instanceof Short) {
 			mod(((Short) v.mValue).shortValue());
@@ -360,6 +418,14 @@ public class AnyObject {
 
 	public Object value() {
 		return mValue;
+	}
+
+	public static AnyObject valueOf(boolean v) {
+		return new AnyObject(v);
+	}
+
+	public static AnyObject valueOf(byte v) {
+		return new AnyObject(v);
 	}
 
 	public static AnyObject valueOf(int v) {
@@ -394,7 +460,9 @@ public class AnyObject {
 		if (mValue == null) {
 			return null;
 		}
-		if (mValue instanceof Integer) {
+		if (mValue instanceof Byte) {
+			return new AnyObject(((Byte) mValue).byteValue());
+		} else if (mValue instanceof Integer) {
 			return new AnyObject(((Integer) mValue).intValue());
 		} else if (mValue instanceof Short) {
 			return new AnyObject(((Short) mValue).shortValue());

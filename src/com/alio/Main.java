@@ -62,11 +62,7 @@ public class Main {
 		eGraph.insertEdge(node3, node8, AnyObject.valueOf(1));
 		eGraph.insertEdge(node4, node8, AnyObject.valueOf(1));
 		Graph<Node> graph = eGraph.build();
-		List<Node> nodeList = graph.broadFirstSearch();
-		for (Node node : nodeList) {
-			System.out.print(node.getName() + " ");
-		}
-		System.out.println();
+		List<Node> nodeList = graph.getExecVertexList();
 		IExecutable iExecutable = null;
 		for (Node node : nodeList) {
 			if (node instanceof IExecutable) {
