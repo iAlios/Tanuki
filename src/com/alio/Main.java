@@ -83,6 +83,11 @@ public class Main {
 		for (Node node : nList) {
 			System.out.print(node.getName() + " ");
 		}
+		System.out.println();
+		nList = graph.getExecVertexList();
+		for (Node node : nList) {
+			System.out.print(node.getName() + " ");
+		}
 	}
 
 }

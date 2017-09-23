@@ -9,12 +9,12 @@ public class Graph<T> {
 	/**
 	 * 存储点的链表
 	 */
-	private ArrayList<T> vertexList;
+	private ArrayList<T> mVertexList;
 
 	/**
 	 * 邻接矩阵，用来存储边
 	 */
-	private AnyObject[][] edges;
+	private AnyObject[][] mEdges;
 
 	/**
 	 * 边的数目
@@ -22,8 +22,8 @@ public class Graph<T> {
 	private int numOfEdges;
 
 	Graph(int n) {
-		edges = new AnyObject[n][n];
-		vertexList = new ArrayList<T>(n);
+		mEdges = new AnyObject[n][n];
+		mVertexList = new ArrayList<T>(n);
 		numOfEdges = 0;
 	}
 
@@ -33,7 +33,7 @@ public class Graph<T> {
 	 * @return
 	 */
 	public int getNumOfVertex() {
-		return vertexList.size();
+		return mVertexList.size();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class Graph<T> {
 	 * @return
 	 */
 	public T getValueByIndex(int index) {
-		return vertexList.get(index);
+		return mVertexList.get(index);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Graph<T> {
 	 * @return
 	 */
 	public AnyObject getWeight(int v1, int v2) {
-		return edges[v1][v2];
+		return mEdges[v1][v2];
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class Graph<T> {
 	 * @param vertex
 	 */
 	public void insertVertex(T vertex) {
-		vertexList.add(vertexList.size(), vertex);
+		mVertexList.add(mVertexList.size(), vertex);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class Graph<T> {
 	 * @param vertex
 	 */
 	public void insertAllVertex(List<T> vertexs) {
-		vertexList.addAll(vertexList.size(), vertexs);
+		mVertexList.addAll(mVertexList.size(), vertexs);
 	}
 
 	/**
@@ -92,10 +92,10 @@ public class Graph<T> {
 	 */
 	public List<T> getVertexListByDestination(T node) {
 		List<T> result = new ArrayList<T>();
-		int index = vertexList.indexOf(node);
-		for (int i = 0; i < vertexList.size(); i++) {
-			if (edges[i][index] != null) {
-				result.add(vertexList.get(i));
+		int index = mVertexList.indexOf(node);
+		for (int i = 0; i < mVertexList.size(); i++) {
+			if (mEdges[i][index] != null) {
+				result.add(mVertexList.get(i));
 			}
 		}
 		return result;
@@ -109,10 +109,10 @@ public class Graph<T> {
 	 */
 	public List<T> getVertexListByOrigin(T node) {
 		List<T> result = new ArrayList<T>();
-		int index = vertexList.indexOf(node);
-		for (int i = 0; i < vertexList.size(); i++) {
-			if (edges[index][i] != null) {
-				result.add(vertexList.get(i));
+		int index = mVertexList.indexOf(node);
+		for (int i = 0; i < mVertexList.size(); i++) {
+			if (mEdges[index][i] != null) {
+				result.add(mVertexList.get(i));
 			}
 		}
 		return result;
@@ -125,7 +125,7 @@ public class Graph<T> {
 	 *            节点数据
 	 */
 	public void deleteVertex(T vertex) {
-		vertexList.remove(vertex);
+		mVertexList.remove(vertex);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class Graph<T> {
 	 * @param weight
 	 */
 	public void insertEdge(int v1, int v2, AnyObject weight) {
-		edges[v1][v2] = weight;
+		mEdges[v1][v2] = weight;
 		numOfEdges++;
 	}
 
@@ -151,7 +151,7 @@ public class Graph<T> {
 	 *            节点2
 	 */
 	public void deleteEdge(int v1, int v2) {
-		edges[v1][v2] = null;
+		mEdges[v1][v2] = null;
 		numOfEdges--;
 	}
 
@@ -162,8 +162,8 @@ public class Graph<T> {
 	 * @return
 	 */
 	public int getFirstNeighbor(int index) {
-		for (int j = 0; j < vertexList.size(); j++) {
-			if (edges[index][j] != null) {
+		for (int j = 0; j < mVertexList.size(); j++) {
+			if (mEdges[index][j] != null) {
 				return j;
 			}
 		}
@@ -178,8 +178,8 @@ public class Graph<T> {
 	 * @return
 	 */
 	public int getNextNeighbor(int v1, int v2) {
-		for (int j = v2 + 1; j < vertexList.size(); j++) {
-			if (edges[v1][j] != null) {
+		for (int j = v2 + 1; j < mVertexList.size(); j++) {
+			if (mEdges[v1][j] != null) {
 				return j;
 			}
 		}
@@ -246,6 +246,28 @@ public class Graph<T> {
 	}
 
 	/**
+	 * 执行遍历(左右中的方式)
+	 */
+	public List<T> getDependenceList(int target) {
+		List<T> result = new ArrayList<T>();
+		T temp;
+		for (int index = 0; index < getNumOfVertex(); index++) {
+			if (mEdges[index][target] != null) {
+				for (T t : getDependenceList(index)) {
+					if (!result.contains(t)) {
+						result.add(t);
+					}
+				}
+				temp = getValueByIndex(index);
+				if (!result.contains(temp)) {
+					result.add(temp);
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
 	 * 获取所有边缘节点
 	 * 
 	 * @return
@@ -256,22 +278,22 @@ public class Graph<T> {
 		for (int i = 0; i < num; i++) {
 			loop: {
 				for (int j = 0; j < num; j++) {
-					if (edges[i][j] != null) {
+					if (mEdges[i][j] != null) {
 						break loop;
 					}
 				}
-				result.add(vertexList.get(i));
+				result.add(mVertexList.get(i));
 			}
 		}
 		for (int i = 0; i < num; i++) {
 			loop: {
 				for (int j = 0; j < num; j++) {
-					if (edges[j][i] != null) {
+					if (mEdges[j][i] != null) {
 						break loop;
 					}
 				}
-				if (!result.contains(vertexList.get(i))) {
-					result.add(vertexList.get(i));
+				if (!result.contains(mVertexList.get(i))) {
+					result.add(mVertexList.get(i));
 				}
 			}
 		}
@@ -289,11 +311,11 @@ public class Graph<T> {
 		for (int i = 0; i < num; i++) {
 			loop: {
 				for (int j = 0; j < num; j++) {
-					if (edges[i][j] != null) {
+					if (mEdges[i][j] != null) {
 						break loop;
 					}
 				}
-				result.add(vertexList.get(i));
+				result.add(mVertexList.get(i));
 			}
 		}
 		return result;
@@ -310,31 +332,42 @@ public class Graph<T> {
 		for (int i = 0; i < num; i++) {
 			loop: {
 				for (int j = 0; j < num; j++) {
-					if (edges[j][i] != null) {
+					if (mEdges[j][i] != null) {
 						break loop;
 					}
 				}
-				result.add(vertexList.get(i));
+				result.add(mVertexList.get(i));
 			}
 		}
 		return result;
 	}
 
+	public List<T> getExecVertexList() {
+		List<T> endList = getAllEndVertex();
+		List<T> result = new ArrayList<T>();
+		int index = -1;
+		for (T t : endList) {
+			index = mVertexList.indexOf(t);
+			for (T t1 : getDependenceList(index)) {
+				if (!result.contains(t1)) {
+					result.add(t1);
+				}
+			}
+			result.add(t);
+		}
+		return result;
+	}
+
 	public static void main(String args[]) {
-		String labels[] = { "1", "2", "3", "4", "5", "6", "7", "8" };// 节点的标识
+		String labels[] = { "1", "2", "3", "4", "5" };// 节点的标识
 		Graph<String> graph = new Graph<String>(labels.length);
 		for (String label : labels) {
 			graph.insertVertex(label);// 插入节点
 		}
-		graph.insertEdge(0, 1, AnyObject.valueOf(1));
 		graph.insertEdge(0, 2, AnyObject.valueOf(1));
-		graph.insertEdge(1, 3, AnyObject.valueOf(1));
-		graph.insertEdge(1, 4, AnyObject.valueOf(1));
-		graph.insertEdge(3, 7, AnyObject.valueOf(1));
-		graph.insertEdge(4, 7, AnyObject.valueOf(1));
-		graph.insertEdge(2, 5, AnyObject.valueOf(1));
-		graph.insertEdge(2, 6, AnyObject.valueOf(1));
-		graph.insertEdge(5, 6, AnyObject.valueOf(1));
+		graph.insertEdge(1, 2, AnyObject.valueOf(1));
+		graph.insertEdge(2, 4, AnyObject.valueOf(1));
+		graph.insertEdge(3, 4, AnyObject.valueOf(1));
 
 		System.out.println("深度优先搜索序列为：");
 		for (String str : graph.depthFirstSearch()) {
@@ -355,6 +388,12 @@ public class Graph<T> {
 		for (String str : graph.getAllEndVertex()) {
 			System.out.print(str + "  ");
 		}
+		System.out.println();
+		System.out.println("获取结束节点为：");
+		for (String str : graph.getDependenceList(4)) {
+			System.out.print(str + "  ");
+		}
+
 	}
 
 }
