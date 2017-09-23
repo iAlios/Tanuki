@@ -4,7 +4,7 @@ import com.alio.base.IExecutable;
 
 public enum ExecutorType {
 
-	PLUS {
+	PLUS("+") {
 
 		@Override
 		public IExecutable getExecutor() {
@@ -12,7 +12,7 @@ public enum ExecutorType {
 		}
 		
 	},
-	MINUS {
+	MINUS("-") {
 
 		@Override
 		public IExecutable getExecutor() {
@@ -20,7 +20,7 @@ public enum ExecutorType {
 		}
 		
 	},
-	MULTIPLY {
+	MULTIPLY("*") {
 
 		@Override
 		public IExecutable getExecutor() {
@@ -28,14 +28,31 @@ public enum ExecutorType {
 		}
 		
 	},
-	DIVIDE {
+	DIVIDE("/") {
 
 		@Override
 		public IExecutable getExecutor() {
 			return new DivideExecutor();
 		}
 		
+	},
+	MOD("%") {
+
+		@Override
+		public IExecutable getExecutor() {
+			return new ModExecutor();
+		}
+		
 	};
+	private String mType;
+	
+	private ExecutorType(String type) {
+		mType = type;
+	}
+	
+	public String type() {
+		return mType;
+	}
 	
 	public abstract IExecutable getExecutor();
 	

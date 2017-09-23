@@ -1,6 +1,9 @@
 package com.alio.graph;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.alio.base.Node;
 
 public class GraphBuilder<T> {
 
@@ -69,6 +72,11 @@ public class GraphBuilder<T> {
 		mEdgeList = new ArrayList<>();
 	}
 
+	public void clearAll() {
+		mVertexList.clear();
+		mEdgeList.clear();
+	}
+
 	public GraphBuilder<T> insertVertex(T vertex) {
 		mVertexList.add(vertex);
 		return this;
@@ -85,12 +93,12 @@ public class GraphBuilder<T> {
 
 	public GraphBuilder<T> insertEdge(T vertex1, T vertex2, boolean isBidirection) {
 		mEdgeList.add(new Edge<T, T>(vertex1, vertex2));
-		if(isBidirection) {
+		if (isBidirection) {
 			mEdgeList.add(new Edge<T, T>(vertex2, vertex1));
 		}
 		return this;
 	}
-	
+
 	public GraphBuilder<T> insertEdge(T vertex1, T vertex2, AnyObject weight) {
 		mEdgeList.add(new Edge<T, T>(vertex1, vertex2, weight));
 		return this;
@@ -105,8 +113,7 @@ public class GraphBuilder<T> {
 		Graph<T> result = new Graph<>(mVertexList.size());
 		result.insertAllVertex(mVertexList);
 		for (Edge<T, T> edge : mEdgeList) {
-			result.insertEdge(mVertexList.indexOf(edge.getT1()), 
-					mVertexList.indexOf(edge.getT2()), edge.getWeight());
+			result.insertEdge(mVertexList.indexOf(edge.getT1()), mVertexList.indexOf(edge.getT2()), edge.getWeight());
 		}
 		return result;
 	}
@@ -126,7 +133,7 @@ public class GraphBuilder<T> {
 		graphBuilder.insertEdge("3", "6");
 		graphBuilder.insertEdge("3", "7");
 		graphBuilder.insertEdge("6", "7");
-		
+
 		Graph<String> graph = graphBuilder.build();
 		System.out.println("深度优先搜索序列为：");
 		for (String str : graph.depthFirstSearch()) {

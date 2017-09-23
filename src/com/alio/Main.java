@@ -28,6 +28,7 @@ public class Main {
 
 	/**
 	 * 执行顺序按节点加入到图中的顺序来进行排序
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
