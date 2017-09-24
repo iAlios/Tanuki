@@ -1,8 +1,6 @@
 package com.alio.exec;
 
 import com.alio.base.ExecutableNode;
-import com.alio.base.PriorityConstant;
-import com.alio.graph.AnyObject;
 
 public enum ExecutorType {
 
@@ -13,11 +11,6 @@ public enum ExecutorType {
 			return new PlusExecutor();
 		}
 
-		@Override
-		public AnyObject getPriorityWeight() {
-			return AnyObject.valueOf(PriorityConstant.PLUS);
-		}
-		
 	},
 	MINUS("-") {
 
@@ -26,11 +19,6 @@ public enum ExecutorType {
 			return new MinusExecutor();
 		}
 
-		@Override
-		public AnyObject getPriorityWeight() {
-			return AnyObject.valueOf(PriorityConstant.MINUS);
-		}
-		
 	},
 	MULTIPLY("*") {
 
@@ -39,11 +27,6 @@ public enum ExecutorType {
 			return new MultipyExecutor();
 		}
 
-		@Override
-		public AnyObject getPriorityWeight() {
-			return AnyObject.valueOf(PriorityConstant.MULTIPLY);
-		}
-		
 	},
 	DIVIDE("/") {
 
@@ -52,11 +35,6 @@ public enum ExecutorType {
 			return new DivideExecutor();
 		}
 
-		@Override
-		public AnyObject getPriorityWeight() {
-			return AnyObject.valueOf(PriorityConstant.DIVIDE);
-		}
-		
 	},
 	MOD("%") {
 
@@ -65,11 +43,6 @@ public enum ExecutorType {
 			return new ModExecutor();
 		}
 
-		@Override
-		public AnyObject getPriorityWeight() {
-			return AnyObject.valueOf(PriorityConstant.MOD);
-		}
-		
 	};
 	private String mType;
 	
@@ -91,7 +64,5 @@ public enum ExecutorType {
 		}
 		return null;
 	}
-	
-	public abstract AnyObject getPriorityWeight() ;
 	
 }

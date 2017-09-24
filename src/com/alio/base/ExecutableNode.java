@@ -1,11 +1,12 @@
 package com.alio.base;
 
 import com.alio.exec.ExecutorType;
+import com.alio.graph.AnyObject;
 
 public abstract class ExecutableNode extends Node implements IExecutable {
 
-	public ExecutableNode() {
-		super(null);
+	public ExecutableNode(AnyObject priorityWeight) {
+		super(null, priorityWeight);
 	}
 
 	public abstract ExecutorType getMethodType();

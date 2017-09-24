@@ -150,9 +150,11 @@ public class Graph<T> {
 	 * @param v2
 	 *            节点2
 	 */
-	public void deleteEdge(int v1, int v2) {
+	public AnyObject deleteEdge(int v1, int v2) {
+		AnyObject result = mEdges[v1][v2];
 		mEdges[v1][v2] = null;
 		numOfEdges--;
+		return result;
 	}
 
 	/**
@@ -184,6 +186,10 @@ public class Graph<T> {
 			}
 		}
 		return -1;
+	}
+
+	public int getIndexByValue(T t) {
+		return mVertexList.indexOf(t);
 	}
 
 	private List<T> depthFirstSearch(boolean[] isVisited, int i) {

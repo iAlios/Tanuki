@@ -1,9 +1,14 @@
 package com.alio.exec;
 
 import com.alio.base.ExecutableNode;
+import com.alio.base.PriorityConstant;
 import com.alio.graph.AnyObject;
 
 public class ModExecutor extends ExecutableNode {
+
+	public ModExecutor() {
+		super(AnyObject.valueOf(PriorityConstant.MOD));
+	}
 
 	@Override
 	public boolean exec(AnyObject... params) {
@@ -22,7 +27,7 @@ public class ModExecutor extends ExecutableNode {
 
 	@Override
 	public ExecutorType getMethodType() {
-		return ExecutorType.MINUS;
+		return ExecutorType.MOD;
 	}
 
 }

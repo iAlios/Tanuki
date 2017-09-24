@@ -1,6 +1,7 @@
 package com.alio;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		return result;
 	}
 
-	public AnyObject exec(String func) {
+	public AnyObject[] exec(String func) {
 		clearAll();
 		Scanner cScanner = new Scanner(func);
 		String word = null;
@@ -70,11 +71,10 @@ public class GraphEngine extends GraphBuilder<Node> {
 					throw new IllegalArgumentException("there is no func between two fields.");
 				}
 				insertVertex(temp = mNodeMap.get(word));
-				if (mLastNode != null && mLastNode instanceof IExecutable) {
+				if (mLastNode != null) {
 					insertEdge(temp, mLastNode);
-				} else {
-					mLastNode = temp;
 				}
+				mLastNode = temp;
 			} else {
 				if (mLastNode == null) {
 					cScanner.close();
@@ -82,7 +82,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 				}
 				type = ExecutorType.typeOf(word);
 				insertVertex(temp = type.getExecutor());
-				if(mLastNode != null) {
+				if (mLastNode != null) {
 					insertEdge(mLastNode, temp);
 				}
 				mLastNode = temp;
@@ -90,7 +90,36 @@ public class GraphEngine extends GraphBuilder<Node> {
 		}
 		cScanner.close();
 		Graph<Node> graph = build();
-		List<Node> nodeList = graph.getExecVertexList();
+		List<Node> nodeList = graph.getAllEndVertex();
+		nodeList.sort(new Comparator<Node>() {
+
+			@Override
+			public int compare(Node o1, Node o2) {
+				return o2.getPriorityWeight().compareTo(o1.getPriorityWeight());
+			}
+		});
+		Map<Node, Node> nodeMap = new HashMap<>();
+		int index = -1;
+		int target = -1;
+		Node changedNode;
+		AnyObject weightTo = null;
+		AnyObject weightFrom = null;
+		for (Node node : nodeList) {
+			index = graph.getIndexByValue(node);
+			for (Node sub : graph.getDependenceList(index)) {
+				if (nodeMap.containsKey(sub)) {
+					changedNode = nodeMap.get(sub);
+					target = graph.getIndexByValue(sub);
+					weightTo = graph.deleteEdge(index, target);
+					weightFrom = graph.deleteEdge(target, index);
+					graph.insertEdge(index, graph.getIndexByValue(changedNode), weightTo);
+					graph.insertEdge(graph.getIndexByValue(changedNode), index, weightFrom);
+				} else {
+					nodeMap.put(sub, node);
+				}
+			}
+		}
+		nodeList = graph.getExecVertexList();
 		IExecutable iExecutable = null;
 		for (Node node : nodeList) {
 			if (node instanceof IExecutable) {
@@ -99,15 +128,17 @@ public class GraphEngine extends GraphBuilder<Node> {
 				iExecutable.exec(toResultList(paramList));
 			}
 		}
-		return toResultList(graph.getAllEndVertex())[0];
+		return toResultList(graph.getAllEndVertex());
 	}
 
 	public static void main(String[] args) {
 		GraphEngine engine = new GraphEngine();
 		engine.appendField("a", AnyObject.valueOf(2));
-		engine.appendField("b", AnyObject.valueOf(2));
-		engine.appendField("c", AnyObject.valueOf(2));
-		System.out.println(engine.exec("a + b * c"));
+		engine.appendField("b", AnyObject.valueOf(3));
+		engine.appendField("c", AnyObject.valueOf(4));
+		for (AnyObject object : engine.exec("a + b * c")) {
+			System.out.println(object);
+		}
 	}
-	
+
 }

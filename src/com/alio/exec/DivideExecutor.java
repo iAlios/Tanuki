@@ -1,9 +1,14 @@
 package com.alio.exec;
 
 import com.alio.base.ExecutableNode;
+import com.alio.base.PriorityConstant;
 import com.alio.graph.AnyObject;
 
 public class DivideExecutor extends ExecutableNode {
+
+	public DivideExecutor() {
+		super(AnyObject.valueOf(PriorityConstant.DIVIDE));
+	}
 
 	@Override
 	public boolean exec(AnyObject... params) {

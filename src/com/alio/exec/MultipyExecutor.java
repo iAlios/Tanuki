@@ -1,9 +1,14 @@
 package com.alio.exec;
 
 import com.alio.base.ExecutableNode;
+import com.alio.base.PriorityConstant;
 import com.alio.graph.AnyObject;
 
 public class MultipyExecutor extends ExecutableNode {
+
+	public MultipyExecutor() {
+		super(AnyObject.valueOf(PriorityConstant.MULTIPLY));
+	}
 
 	@Override
 	public boolean exec(AnyObject... params) {

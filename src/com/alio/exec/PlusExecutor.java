@@ -1,9 +1,14 @@
 package com.alio.exec;
 
 import com.alio.base.ExecutableNode;
+import com.alio.base.PriorityConstant;
 import com.alio.graph.AnyObject;
 
 public class PlusExecutor extends ExecutableNode {
+
+	public PlusExecutor() {
+		super(AnyObject.valueOf(PriorityConstant.PLUS));
+	}
 
 	@Override
 	public boolean exec(AnyObject... params) {

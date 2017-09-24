@@ -8,11 +8,20 @@ public class Node {
 	
 	private String mName;
 	
+	private AnyObject mPriorityWeight;
+	
 	public Node(String name) {
 		super();
 		mName = name;
+		mPriorityWeight = AnyObject.valueOf(PriorityConstant.NORMAL);
 	}
 	
+	public Node(String name, AnyObject priorityWeight) {
+		super();
+		mName = name;
+		mPriorityWeight = priorityWeight;
+	}
+
 	public String getName() {
 		return mName;
 	}
@@ -25,6 +34,14 @@ public class Node {
 		return mValue;
 	}
 
+	public void increasePriorityWeight() {
+		mPriorityWeight.plus(1);
+	}
+	
+	public AnyObject getPriorityWeight() {
+		return mPriorityWeight;
+	}
+	
 	public String dump() {
 		if(mValue == null) {
 			return null;
