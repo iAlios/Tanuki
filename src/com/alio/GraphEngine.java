@@ -68,6 +68,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		Node mLastNode = null;
 		Node temp = null;
 		long cIncreasePriorityWeight = 0;
+		// 将所有节点加入到初始化图中存储
 		while (cScanner.hasNext()) {
 			word = cScanner.next();
 			if (mNodeMap.containsKey(word)) {
@@ -105,12 +106,14 @@ public class GraphEngine extends GraphBuilder<Node> {
 		}
 		Graph<Node> graph = build();
 		List<Node> nodeList = graph.getAllEndVertex();
+		// 对所有计算节点进行优先级排序
 		nodeList.sort(new Comparator<Node>() {
 
 			@Override
 			public int compare(Node o1, Node o2) {
 				return o2.getPriorityWeight().compareTo(o1.getPriorityWeight());
 			}
+			
 		});
 		int index = -1;
 		int target = -1;
@@ -119,6 +122,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		AnyObject weightFrom = null;
 		List<Node> packageNodes = new ArrayList<Node>();
 		List<Node> subNodes;
+		// 根据优先级包裹的字段来更新各个节点之间的依赖关系
 		for (Node node : nodeList) {
 			index = graph.getIndexByValue(node);
 			subNodes = graph.getDependenceList(index);
@@ -136,6 +140,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 			packageNodes.addAll(subNodes);
 			lastNodeIndex = index;
 		}
+		// 执行整个图结构
 		nodeList = graph.getExecVertexList();
 		IExecutable iExecutable = null;
 		for (Node node : nodeList) {
