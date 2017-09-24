@@ -34,8 +34,8 @@ public class Node {
 		return mValue;
 	}
 
-	public void increasePriorityWeight() {
-		mPriorityWeight.plus(1);
+	public void increasePriorityWeight(long p) {
+		mPriorityWeight.plus(p);
 	}
 	
 	public AnyObject getPriorityWeight() {

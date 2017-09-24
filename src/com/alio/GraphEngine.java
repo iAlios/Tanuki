@@ -63,6 +63,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		ExecutorType type = null;
 		Node mLastNode = null;
 		Node temp = null;
+		long cIncreasePriorityWeight = 0;
 		while (cScanner.hasNext()) {
 			word = cScanner.next();
 			if (mNodeMap.containsKey(word)) {
@@ -74,7 +75,12 @@ public class GraphEngine extends GraphBuilder<Node> {
 				if (mLastNode != null) {
 					insertEdge(temp, mLastNode);
 				}
+				temp.increasePriorityWeight(cIncreasePriorityWeight);
 				mLastNode = temp;
+			} else if (word.equals("(")) {
+				cIncreasePriorityWeight ++;
+			} else if (word.equals(")")) {
+				cIncreasePriorityWeight --;
 			} else {
 				if (mLastNode == null) {
 					cScanner.close();
@@ -85,6 +91,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 				if (mLastNode != null) {
 					insertEdge(mLastNode, temp);
 				}
+				temp.increasePriorityWeight(cIncreasePriorityWeight);
 				mLastNode = temp;
 			}
 		}
@@ -136,7 +143,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		engine.appendField("a", AnyObject.valueOf(2));
 		engine.appendField("b", AnyObject.valueOf(3));
 		engine.appendField("c", AnyObject.valueOf(4));
-		for (AnyObject object : engine.exec("a + b * c")) {
+		for (AnyObject object : engine.exec("( a + b ) * c")) {
 			System.out.println(object);
 		}
 	}
