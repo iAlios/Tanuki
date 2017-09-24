@@ -49,4 +49,9 @@ public class Node {
 		return mValue.toString();
 	}
 
+	@Override
+	public String toString() {
+		return "Node [mValue=" + mValue + ", mName=" + mName + ", mPriorityWeight=" + mPriorityWeight + "]";
+	}
+
 }

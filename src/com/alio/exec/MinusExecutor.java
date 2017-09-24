@@ -7,7 +7,7 @@ import com.alio.graph.AnyObject;
 public class MinusExecutor extends ExecutableNode {
 
 	public MinusExecutor() {
-		super(AnyObject.valueOf(PriorityConstant.MINUS));
+		super(ExecutorType.MINUS, AnyObject.valueOf(PriorityConstant.MINUS));
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class MinusExecutor extends ExecutableNode {
 			mValue.minus(params[index]);
 		}
 		return true;
-	}
-
-	@Override
-	public ExecutorType getMethodType() {
-		return ExecutorType.MINUS;
 	}
 
 }

@@ -7,7 +7,7 @@ import com.alio.graph.AnyObject;
 public class ModExecutor extends ExecutableNode {
 
 	public ModExecutor() {
-		super(AnyObject.valueOf(PriorityConstant.MOD));
+		super(ExecutorType.MOD, AnyObject.valueOf(PriorityConstant.MOD));
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class ModExecutor extends ExecutableNode {
 			mValue.mod(params[index]);
 		}
 		return true;
-	}
-
-	@Override
-	public ExecutorType getMethodType() {
-		return ExecutorType.MOD;
 	}
 
 }

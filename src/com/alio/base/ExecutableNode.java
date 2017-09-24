@@ -5,15 +5,15 @@ import com.alio.graph.AnyObject;
 
 public abstract class ExecutableNode extends Node implements IExecutable {
 
-	public ExecutableNode(AnyObject priorityWeight) {
-		super(null, priorityWeight);
+	private ExecutorType mExecutorType = null;
+	
+	public ExecutableNode(ExecutorType type, AnyObject priorityWeight) {
+		super(type.type(), priorityWeight);
+		mExecutorType = type;
 	}
 
-	public abstract ExecutorType getMethodType();
-	
-	@Override
-	public String getName() {
-		return getMethodType().name();
+	public ExecutorType getMethodType() {
+		return mExecutorType;
 	}
 	
 	@Override

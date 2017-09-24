@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.alio.base.IExecutable;
 import com.alio.base.Node;
+import com.alio.base.PriorityConstant;
 import com.alio.exec.ExecutorType;
 import com.alio.graph.AnyObject;
 import com.alio.graph.Graph;
@@ -78,9 +79,9 @@ public class GraphEngine extends GraphBuilder<Node> {
 				temp.increasePriorityWeight(cIncreasePriorityWeight);
 				mLastNode = temp;
 			} else if (word.equals("(")) {
-				cIncreasePriorityWeight ++;
+				cIncreasePriorityWeight += PriorityConstant.BRACKET;
 			} else if (word.equals(")")) {
-				cIncreasePriorityWeight --;
+				cIncreasePriorityWeight -= PriorityConstant.BRACKET;
 			} else {
 				if (mLastNode == null) {
 					cScanner.close();
@@ -105,26 +106,29 @@ public class GraphEngine extends GraphBuilder<Node> {
 				return o2.getPriorityWeight().compareTo(o1.getPriorityWeight());
 			}
 		});
-		Map<Node, Node> nodeMap = new HashMap<>();
 		int index = -1;
 		int target = -1;
-		Node changedNode;
+		int lastNodeIndex = -1;
 		AnyObject weightTo = null;
 		AnyObject weightFrom = null;
+		List<Node> packageNodes = new ArrayList<Node>();
+		List<Node> subNodes;
 		for (Node node : nodeList) {
 			index = graph.getIndexByValue(node);
-			for (Node sub : graph.getDependenceList(index)) {
-				if (nodeMap.containsKey(sub)) {
-					changedNode = nodeMap.get(sub);
-					target = graph.getIndexByValue(sub);
-					weightTo = graph.deleteEdge(index, target);
-					weightFrom = graph.deleteEdge(target, index);
-					graph.insertEdge(index, graph.getIndexByValue(changedNode), weightTo);
-					graph.insertEdge(graph.getIndexByValue(changedNode), index, weightFrom);
-				} else {
-					nodeMap.put(sub, node);
+			subNodes = graph.getDependenceList(index);
+			if (packageNodes.size() > 0) {
+				for (Node sub : subNodes) {
+					if (packageNodes.contains(sub)) {
+						target = graph.getIndexByValue(sub);
+						weightTo = graph.deleteEdge(index, target);
+						weightFrom = graph.deleteEdge(target, index);
+						graph.insertEdge(index, lastNodeIndex, weightTo);
+						graph.insertEdge(lastNodeIndex, index, weightFrom);
+					}
 				}
 			}
+			packageNodes.addAll(subNodes);
+			lastNodeIndex = index;
 		}
 		nodeList = graph.getExecVertexList();
 		IExecutable iExecutable = null;
@@ -143,7 +147,8 @@ public class GraphEngine extends GraphBuilder<Node> {
 		engine.appendField("a", AnyObject.valueOf(2));
 		engine.appendField("b", AnyObject.valueOf(3));
 		engine.appendField("c", AnyObject.valueOf(4));
-		for (AnyObject object : engine.exec("( a + b ) * c")) {
+		engine.appendField("d", AnyObject.valueOf(5));
+		for (AnyObject object : engine.exec("( a + b * c ) * d")) {
 			System.out.println(object);
 		}
 	}

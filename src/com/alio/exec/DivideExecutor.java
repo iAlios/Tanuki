@@ -7,7 +7,7 @@ import com.alio.graph.AnyObject;
 public class DivideExecutor extends ExecutableNode {
 
 	public DivideExecutor() {
-		super(AnyObject.valueOf(PriorityConstant.DIVIDE));
+		super(ExecutorType.DIVIDE, AnyObject.valueOf(PriorityConstant.DIVIDE));
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class DivideExecutor extends ExecutableNode {
 			mValue.divide(params[index]);
 		}
 		return true;
-	}
-
-	@Override
-	public ExecutorType getMethodType() {
-		return ExecutorType.DIVIDE;
 	}
 
 }

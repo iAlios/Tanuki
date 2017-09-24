@@ -11,10 +11,12 @@ public class PriorityConstant {
 	
 	public static final long MINUS = 0x2;
 	
-	public static final long MOD = 0x3;
+	public static final long MOD = 0x4;
 	
-	public static final long MULTIPLY = 0x3;
+	public static final long MULTIPLY = 0x4;
 	
-	public static final long DIVIDE = 0x3;
+	public static final long DIVIDE = 0x4;
+
+	public static final long BRACKET = 0x8;
 	
 }

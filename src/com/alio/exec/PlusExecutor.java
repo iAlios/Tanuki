@@ -7,7 +7,7 @@ import com.alio.graph.AnyObject;
 public class PlusExecutor extends ExecutableNode {
 
 	public PlusExecutor() {
-		super(AnyObject.valueOf(PriorityConstant.PLUS));
+		super(ExecutorType.PLUS, AnyObject.valueOf(PriorityConstant.PLUS));
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class PlusExecutor extends ExecutableNode {
 			mValue.plus(params[index]);
 		}
 		return true;
-	}
-
-	@Override
-	public ExecutorType getMethodType() {
-		return ExecutorType.PLUS;
 	}
 
 }

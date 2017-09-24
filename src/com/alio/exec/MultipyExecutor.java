@@ -7,7 +7,7 @@ import com.alio.graph.AnyObject;
 public class MultipyExecutor extends ExecutableNode {
 
 	public MultipyExecutor() {
-		super(AnyObject.valueOf(PriorityConstant.MULTIPLY));
+		super(ExecutorType.MULTIPLY, AnyObject.valueOf(PriorityConstant.MULTIPLY));
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class MultipyExecutor extends ExecutableNode {
 			mValue.multipy(params[index]);
 		}
 		return true;
-	}
-
-	@Override
-	public ExecutorType getMethodType() {
-		return ExecutorType.MULTIPLY;
 	}
 
 }
