@@ -57,9 +57,12 @@ public class GraphEngine extends GraphBuilder<Node> {
 		return result;
 	}
 
-	public AnyObject[] exec(String func) {
+	public AnyObject exec(String func) {
+		if (func == null || func.trim().length() <= 0) {
+			throw new IllegalArgumentException("the func is empty.");
+		}
 		clearAll();
-		Scanner cScanner = new Scanner(func);
+		Scanner cScanner = new Scanner(func.trim());
 		String word = null;
 		ExecutorType type = null;
 		Node mLastNode = null;
@@ -97,6 +100,9 @@ public class GraphEngine extends GraphBuilder<Node> {
 			}
 		}
 		cScanner.close();
+		if (!(getEdgeCount() > 0 && getVertexCount() > 0)) {
+			throw new IllegalArgumentException("the func is empty.");
+		}
 		Graph<Node> graph = build();
 		List<Node> nodeList = graph.getAllEndVertex();
 		nodeList.sort(new Comparator<Node>() {
@@ -139,18 +145,30 @@ public class GraphEngine extends GraphBuilder<Node> {
 				iExecutable.exec(toResultList(paramList));
 			}
 		}
-		return toResultList(graph.getAllEndVertex());
+		return toResultList(graph.getAllEndVertex())[0];
 	}
 
+	public void dumpFieldList() {
+		for(Node node:mNodeMap.values()) {
+			System.out.println(String.format("%s = %s", node.getName(), node.getValue()));
+		}
+	}
+	
 	public static void main(String[] args) {
 		GraphEngine engine = new GraphEngine();
 		engine.appendField("a", AnyObject.valueOf(2));
 		engine.appendField("b", AnyObject.valueOf(3));
 		engine.appendField("c", AnyObject.valueOf(4));
 		engine.appendField("d", AnyObject.valueOf(5));
-		for (AnyObject object : engine.exec("( a + b * c ) * d")) {
-			System.out.println(object);
-		}
+		engine.dumpFieldList();
+		String func = "a + b";
+		System.out.println(String.format("%s = %s", func, engine.exec(func)));
+		func = "a + b * c";
+		System.out.println(String.format("%s = %s", func, engine.exec(func)));
+		func = "( a + b ) * c";
+		System.out.println(String.format("%s = %s", func, engine.exec(func)));
+		func = "( ( a + b ) * c ) * d";
+		System.out.println(String.format("%s = %s", func, engine.exec(func)));
 	}
 
 }

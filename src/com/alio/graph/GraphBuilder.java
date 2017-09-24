@@ -76,6 +76,14 @@ public class GraphBuilder<T> {
 		mEdgeList.clear();
 	}
 
+	public int getVertexCount() {
+		return mVertexList.size();
+	}
+	
+	public int getEdgeCount() {
+		return mEdgeList.size();
+	}
+	
 	public GraphBuilder<T> insertVertex(T vertex) {
 		mVertexList.add(vertex);
 		return this;
