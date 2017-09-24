@@ -55,7 +55,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		return result;
 	}
 
-	public AnyObject[] exec(String func) {
+	public AnyObject exec(String func) {
 		clearAll();
 		Scanner cScanner = new Scanner(func);
 		String word = null;
@@ -99,7 +99,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 				iExecutable.exec(toResultList(paramList));
 			}
 		}
-		return toResultList(graph.getAllEndVertex());
+		return toResultList(graph.getAllEndVertex())[0];
 	}
 
 	public static void main(String[] args) {
@@ -107,9 +107,7 @@ public class GraphEngine extends GraphBuilder<Node> {
 		engine.appendField("a", AnyObject.valueOf(2));
 		engine.appendField("b", AnyObject.valueOf(2));
 		engine.appendField("c", AnyObject.valueOf(2));
-		for(AnyObject obj : engine.exec("a + b + c")){
-			System.out.println(obj);
-		}
+		System.out.println(engine.exec("a + b * c"));
 	}
 	
 }

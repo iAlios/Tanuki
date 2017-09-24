@@ -1,6 +1,6 @@
 package com.alio.graph;
 
-public class AnyObject {
+public class AnyObject implements Comparable<AnyObject> {
 
 	private Object mValue;
 
@@ -11,7 +11,7 @@ public class AnyObject {
 	public AnyObject(byte v) {
 		mValue = Byte.valueOf(v);
 	}
-	
+
 	public AnyObject(int v) {
 		mValue = Integer.valueOf(v);
 	}
@@ -420,6 +420,36 @@ public class AnyObject {
 		return mValue;
 	}
 
+	public static final AnyObject plus(AnyObject obj1, AnyObject obj2) {
+		AnyObject result = obj1.clone();
+		result.plus(obj2);
+		return result;
+	}
+
+	public static final AnyObject minus(AnyObject obj1, AnyObject obj2) {
+		AnyObject result = obj1.clone();
+		result.minus(obj2);
+		return result;
+	}
+
+	public static final AnyObject multipy(AnyObject obj1, AnyObject obj2) {
+		AnyObject result = obj1.clone();
+		result.multipy(obj2);
+		return result;
+	}
+
+	public static final AnyObject divide(AnyObject obj1, AnyObject obj2) {
+		AnyObject result = obj1.clone();
+		result.divide(obj2);
+		return result;
+	}
+	
+	public static final AnyObject mod(AnyObject obj1, AnyObject obj2) {
+		AnyObject result = obj1.clone();
+		result.mod(obj2);
+		return result;
+	}
+	
 	public static AnyObject valueOf(boolean v) {
 		return new AnyObject(v);
 	}
@@ -477,5 +507,33 @@ public class AnyObject {
 			return new AnyObject(mValue);
 		}
 	}
-	
+
+	@Override
+	public int compareTo(AnyObject o) {
+		if (o == null || o.mValue == null) {
+			return 1;
+		} else if (mValue == null){
+			return -1;
+		} else if(mValue.getClass().equals(o.mValue.getClass())){
+			if (mValue instanceof Byte) {
+				return ((Byte) mValue).byteValue() - ((Byte) o.mValue).byteValue();
+			} else if (mValue instanceof Integer) {
+				return ((Integer) mValue).byteValue() - ((Integer) o.mValue).byteValue();
+			} else if (mValue instanceof Short) {
+				return ((Short) mValue).byteValue() - ((Short) o.mValue).byteValue();
+			} else if (mValue instanceof Long) {
+				return ((Long) mValue).byteValue() - ((Long) o.mValue).byteValue();
+			} else if (mValue instanceof Float) {
+				return ((Float) mValue).byteValue() - ((Float) o.mValue).byteValue();
+			} else if (mValue instanceof Double) {
+				return ((Double) mValue).byteValue() - ((Double) o.mValue).byteValue();
+			} else {
+				// TODO clone
+				return 1;
+			}
+		} else {
+			return 1;
+		}
+	}
+
 }

@@ -31,5 +31,5 @@ public class Node {
 		}
 		return mValue.toString();
 	}
-	
+
 }

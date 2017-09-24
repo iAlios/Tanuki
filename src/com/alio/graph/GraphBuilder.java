@@ -2,6 +2,8 @@ package com.alio.graph;
 
 import java.util.ArrayList;
 
+import com.alio.base.PriorityConstant;
+
 public class GraphBuilder<T> {
 
 	protected class Edge<T1, T2> {
@@ -10,7 +12,7 @@ public class GraphBuilder<T> {
 
 		private T2 mT2;
 
-		private AnyObject mWeight = AnyObject.valueOf(1);
+		private AnyObject mWeight = AnyObject.valueOf(PriorityConstant.NORMAL);
 
 		public Edge(T1 t1, T2 t2) {
 			super();
@@ -106,6 +108,8 @@ public class GraphBuilder<T> {
 		return this;
 	}
 
+	
+	
 	public Graph<T> build() {
 		Graph<T> result = new Graph<>(mVertexList.size());
 		result.insertAllVertex(mVertexList);
