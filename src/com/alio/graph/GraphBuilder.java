@@ -1,9 +1,6 @@
 package com.alio.graph;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.alio.base.Node;
 
 public class GraphBuilder<T> {
 
@@ -13,7 +10,7 @@ public class GraphBuilder<T> {
 
 		private T2 mT2;
 
-		private AnyObject mWeight = null;
+		private AnyObject mWeight = AnyObject.valueOf(1);
 
 		public Edge(T1 t1, T2 t2) {
 			super();
@@ -88,7 +85,7 @@ public class GraphBuilder<T> {
 	}
 
 	public GraphBuilder<T> insertEdge(T vertex1, T vertex2) {
-		return insertEdge(vertex1, vertex2, true);
+		return insertEdge(vertex1, vertex2, false);
 	}
 
 	public GraphBuilder<T> insertEdge(T vertex1, T vertex2, boolean isBidirection) {

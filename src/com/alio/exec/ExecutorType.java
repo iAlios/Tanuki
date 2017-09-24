@@ -1,13 +1,13 @@
 package com.alio.exec;
 
-import com.alio.base.IExecutable;
+import com.alio.base.ExecutableNode;
 
 public enum ExecutorType {
 
 	PLUS("+") {
 
 		@Override
-		public IExecutable getExecutor() {
+		public ExecutableNode getExecutor() {
 			return new PlusExecutor();
 		}
 		
@@ -15,7 +15,7 @@ public enum ExecutorType {
 	MINUS("-") {
 
 		@Override
-		public IExecutable getExecutor() {
+		public ExecutableNode getExecutor() {
 			return new MinusExecutor();
 		}
 		
@@ -23,7 +23,7 @@ public enum ExecutorType {
 	MULTIPLY("*") {
 
 		@Override
-		public IExecutable getExecutor() {
+		public ExecutableNode getExecutor() {
 			return new MultipyExecutor();
 		}
 		
@@ -31,7 +31,7 @@ public enum ExecutorType {
 	DIVIDE("/") {
 
 		@Override
-		public IExecutable getExecutor() {
+		public ExecutableNode getExecutor() {
 			return new DivideExecutor();
 		}
 		
@@ -39,7 +39,7 @@ public enum ExecutorType {
 	MOD("%") {
 
 		@Override
-		public IExecutable getExecutor() {
+		public ExecutableNode getExecutor() {
 			return new ModExecutor();
 		}
 		
@@ -54,6 +54,15 @@ public enum ExecutorType {
 		return mType;
 	}
 	
-	public abstract IExecutable getExecutor();
+	public abstract ExecutableNode getExecutor();
+
+	public static final ExecutorType typeOf(String type) {
+		for(ExecutorType eType:values()) {
+			if(eType.mType.equals(type)) {
+				return eType;
+			}
+		}
+		return null;
+	}
 	
 }
