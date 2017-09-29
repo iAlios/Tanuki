@@ -1,6 +1,6 @@
 package com.alio.base;
 
-import com.alio.graph.AnyObject;
+import com.alio.structure.AnyObject;
 
 public class Node {
 

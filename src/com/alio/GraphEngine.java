@@ -11,9 +11,9 @@ import com.alio.base.IExecutable;
 import com.alio.base.Node;
 import com.alio.base.PriorityConstant;
 import com.alio.exec.ExecutorType;
-import com.alio.graph.AnyObject;
-import com.alio.graph.Graph;
-import com.alio.graph.GraphBuilder;
+import com.alio.structure.AnyObject;
+import com.alio.structure.Graph;
+import com.alio.structure.GraphBuilder;
 
 public class GraphEngine extends GraphBuilder<Node> {
 

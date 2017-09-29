@@ -1,7 +1,7 @@
 package com.alio.base;
 
 import com.alio.exec.ExecutorType;
-import com.alio.graph.AnyObject;
+import com.alio.structure.AnyObject;
 
 public abstract class ExecutableNode extends Node implements IExecutable {
 

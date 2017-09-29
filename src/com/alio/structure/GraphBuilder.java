@@ -1,4 +1,4 @@
-package com.alio.graph;
+package com.alio.structure;
 
 import java.util.ArrayList;
 
