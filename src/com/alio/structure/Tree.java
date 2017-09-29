@@ -167,6 +167,11 @@ public class Tree<K, W> {
 		return result != null && result.getWeight() != null;
 	}
 
+	public boolean contains(List<K> kList) {
+		Node<K, W> result = getNode(kList, false);
+		return result != null;
+	}
+
 	public List<Pair<List<K>, W>> dump() {
 		List<Pair<List<K>, W>> result = new ArrayList<>();
 		List<K> superList = null;
