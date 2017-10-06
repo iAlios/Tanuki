@@ -32,3 +32,4 @@
 	System.out.println(String.format("%s = %s", func, engine.exec(func)));
 
 如上所示，通过创建简单的字段，然后使用功能定义即可执行。
+![执行图](http://upload-images.jianshu.io/upload_images/6504531-fd3703117e0b8053.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
