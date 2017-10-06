@@ -7,11 +7,15 @@
 * 根据公式创建执行图
 * 通过给定参数, 能完成简单的四则运算操作
 * 支持括号优先级功能
+* 支持树结构
+* 使用 AnyObject 来保存任意数据类型, 包括 int, long, float, double, short, byte, boolean以及 Object 对象，弱化数据类型
 
 ## [未实现]
 * FOR 循环列表(对于 FOR 或 CATCH 等类似的操作采用子执行序列的方式进行)
 * 添加 Matrix 及 Vector 数据类型的支持
 * 添加方向求导等函数
+* 将任意对象以 JSON 或 Map 的方式存放至 AnyObject 中
+* 弱化关键字与数据节点的关系（目前以空格进行分割）
 
 ## 常见示例
 如下是如果通过 GraphEngine 来执行四则运算：
