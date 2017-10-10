@@ -15,7 +15,7 @@
 * 添加 Matrix 及 Vector 数据类型的支持
 * 添加方向求导等函数
 * 将任意对象以 JSON 或 Map 的方式存放至 AnyObject 中
-* 弱化关键字与数据节点的关系（目前以空格进行分割）
+* ~~弱化关键字与数据节点的关系（目前以空格进行分割）~~
 
 ## 常见示例
 如下是如果通过 GraphEngine 来执行四则运算：
@@ -26,13 +26,13 @@
 	engine.appendField("c", AnyObject.valueOf(4));
 	engine.appendField("d", AnyObject.valueOf(5));
 	engine.dumpFieldList();
-	String func = "a + b";
+	String func = "a+b";
 	System.out.println(String.format("%s = %s", func, engine.exec(func)));
-	func = "a + b * c";
+	func = "a + b*c";
 	System.out.println(String.format("%s = %s", func, engine.exec(func)));
-	func = "( a + b ) * c";
+	func = "(a + b) * c";
 	System.out.println(String.format("%s = %s", func, engine.exec(func)));
-	func = "( ( a + b ) * c ) * d";
+	func = "((a + b) * c) * d";
 	System.out.println(String.format("%s = %s", func, engine.exec(func)));
 
 如上所示，通过创建简单的字段，然后使用功能定义即可执行。
