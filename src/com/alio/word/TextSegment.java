@@ -78,6 +78,17 @@ public class TextSegment {
 			System.out.println("},");
 		}
 		System.out.println("]");
+		result = TextSegment.segment("wheninthecourse");
+		System.out.println("[");
+		for(ArrayList<String> list:result) {
+			System.out.print("{");
+			for(String word : list) {
+				System.out.print(word);
+				System.out.print(",");
+			}
+			System.out.println("},");
+		}
+		System.out.println("]");
 	}
 
 }

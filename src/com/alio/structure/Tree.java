@@ -190,7 +190,7 @@ public class Tree<K, W> {
 		return node.dump(superList);
 	}
 
-	private static final String[] toStringArray(String word) {
+	public static final String[] toStringArray(String word) {
 		char[] cList = word.toCharArray();
 		String[] result = new String[cList.length];
 		int index = 0;
@@ -201,7 +201,7 @@ public class Tree<K, W> {
 	}
 
 	@SafeVarargs
-	public static <T> List<T> asList(T... tList) {
+	public static final <T> List<T> asList(T... tList) {
 		ArrayList<T> result = new ArrayList<>();
 		for (T t : tList) {
 			result.add(t);
